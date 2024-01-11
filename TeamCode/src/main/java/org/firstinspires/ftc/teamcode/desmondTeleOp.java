@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class parrotsMotorMap extends LinearOpMode {
+public class desmondTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() {
         DcMotor motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft"); // input 3
@@ -66,58 +66,57 @@ public class parrotsMotorMap extends LinearOpMode {
 
             motorDroneShooter.setZeroPowerBehavior(BRAKE);
 
-            //set motors to zero while not in use(stops robot from moving while joystick isn't pressed)
             waitForStart();
 
-            double motorPower = gamepad2.left_stick_y;
-            if (gamepad2.left_stick_y > -0.1 || gamepad2.left_stick_y < 0.1) {
-                motorArmLift.setPower(motorPower);
-            } else {
-                motorArmLift.setPower(0);
-            }
-
-            if (gamepad2.y) {
-                motorDroneShooter.setPower(-1);
-            } else {
-                motorDroneShooter.setPower(0);
-            }
-
-
-            double extenderPowerOut = (gamepad2.right_trigger);
-            if (gamepad2.right_trigger > 0.1) {
-                motorArmExtender.setPower(extenderPowerOut);
-            } else {
-                motorArmExtender.setPower(0);
-            }
-            double extenderPowerIn = (gamepad2.left_trigger);
-            if (gamepad2.left_trigger > 0.1) {
-                motorArmExtender.setPower(-extenderPowerIn);
-            } else {
-                motorArmExtender.setPower(0);
-            }
-
-            if (gamepad2.dpad_down) {
-                while (gamepad2.dpad_down) {
-                    double position = servoArmTilt.getPosition();
-                    servoArmTilt.setPosition(position + 0.05);
+                double motorPower = gamepad2.left_stick_y;
+                if (gamepad2.left_stick_y > -0.1 || gamepad2.left_stick_y < 0.1) {
+                    motorArmLift.setPower(motorPower);
+                } else {
+                    motorArmLift.setPower(0);
                 }
-            } else {
-                servoArmTilt.setPosition(0);
-            }
-            if (gamepad2.dpad_up) {
-                while (gamepad2.dpad_up) {
-                    double position = servoArmTilt.getPosition();
-                    servoArmTilt.setPosition(position - 0.05);
-                }
-            } else {
-                servoArmTilt.setPosition(0.5);
-            }
 
-            if (gamepad2.x) {
-                servoArmClaw.setPosition(0.4);
-            } else if (gamepad2.b) {
-                servoArmClaw.setPosition(0.6);
+                if (gamepad2.y) {
+                    motorDroneShooter.setPower(-1);
+                } else {
+                    motorDroneShooter.setPower(0);
+                }
+
+
+                double extenderPowerOut = (gamepad2.right_trigger);
+                if (gamepad2.right_trigger > 0.1) {
+                    motorArmExtender.setPower(extenderPowerOut);
+                } else {
+                    motorArmExtender.setPower(0);
+                }
+                double extenderPowerIn = (gamepad2.left_trigger);
+                if (gamepad2.left_trigger > 0.1) {
+                    motorArmExtender.setPower(-extenderPowerIn);
+                } else {
+                    motorArmExtender.setPower(0);
+                }
+
+                if (gamepad2.dpad_down) {
+                    while (gamepad2.dpad_down) {
+                        double position = servoArmTilt.getPosition();
+                        servoArmTilt.setPosition(position + 0.05);
+                    }
+                } else {
+                    servoArmTilt.setPosition(0);
+                }
+                if (gamepad2.dpad_up) {
+                    while (gamepad2.dpad_up) {
+                        double position = servoArmTilt.getPosition();
+                        servoArmTilt.setPosition(position - 0.05);
+                    }
+                } else {
+                    servoArmTilt.setPosition(0.5);
+                }
+
+                if (gamepad2.x) {
+                    servoArmClaw.setPosition(0.4);
+                } else if (gamepad2.b) {
+                    servoArmClaw.setPosition(0.6);
+                }
             }
         }
     }
-}
