@@ -20,7 +20,7 @@ public class parrotsTeleOp extends LinearOpMode {
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight"); // input 0
 
 
-        Servo motorMount = hardwareMap.servo.get("motorMount"); // extension hub 0
+        DcMotor motorMount = hardwareMap.dcMotor.get("motorMount"); // extension hub 0
         DcMotor motorArmLift = hardwareMap.dcMotor.get("motorArmLift"); // extension hub 1
         DcMotor motorArmExtender = hardwareMap.dcMotor.get("motorArmExtender"); // extension hub 2
         DcMotor motorDroneShooter = hardwareMap.dcMotor.get("motorDroneShooter"); // extension hub 3
@@ -42,7 +42,7 @@ public class parrotsTeleOp extends LinearOpMode {
         motorBackRight.setZeroPowerBehavior(BRAKE);
 
 
-        //motorMount.setZeroPowerBehavior(BRAKE);
+        motorMount.setZeroPowerBehavior(BRAKE);
         motorArmLift.setZeroPowerBehavior(BRAKE);
         motorArmExtender.setZeroPowerBehavior(BRAKE);
 
@@ -73,11 +73,9 @@ public class parrotsTeleOp extends LinearOpMode {
 
             double mountPower = gamepad2.right_stick_y;
             if (gamepad2.right_stick_y > 0.1 || gamepad2.right_stick_y < -0.1) {
-                //motorMount.setPower(mountPower);
-                double position = motorMount.getPosition();
-                motorMount.setPosition(position - 0.05);
-            //} else {
-                //motorMount.setPower(0);
+                motorMount.setPower(mountPower);
+            } else {
+                motorMount.setPower(0);
             }
 
 
@@ -85,10 +83,6 @@ public class parrotsTeleOp extends LinearOpMode {
 
 
 
-            if (isStopRequested()) return;
-
-
-            while (opModeIsActive()) {
                 double motorPower = 0.5 * gamepad2.left_stick_y;
                 if (gamepad2.left_stick_y > 0.1 || gamepad2.left_stick_y < -0.1) {
                     motorArmLift.setPower(motorPower);
@@ -146,4 +140,3 @@ public class parrotsTeleOp extends LinearOpMode {
             }
         }
     }
-}
